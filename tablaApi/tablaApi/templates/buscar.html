@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Buscar</title>
+</head>
+<body>
+
+<h1>Buscar licencia</h1>
+
+<form method="GET">
+    <input type="text" name="q" placeholder="Buscar">
+    <button type="submit">Buscar</button>
+</form>
+
+<hr>
+
+{% if resultados %}
+
+    {% for r in resultados %}
+        <p>ID: {{ r.id }}</p>
+        <p>Nombre equipo: {{ r.nombre_equipo }}</p>
+        <p>Serial: {{ r.serial }}</p>
+        <p>Usuario: {{ r.usuario }}</p>
+        <p>Software: {{ r.software }}</p>
+        <p>Propietario: {{ r.propietario }}</p>
+        <p>Sede: {{ r.sede }}</p>
+        <p>Ciudad: {{ r.ciudad }}</p>
+        <p>ticket_asignacion: {{ r.ticket_asignacion }}</p>
+        <p>ticket_traslado: {{ r.ticket_traslado }}</p>
+        <p>ticket_retiro: {{ r.ticket_retiro }}</p>
+        <p>Estado: {{ r.estado }}</p>
+        <p>Fecha: {{ r.fecha }}</p>
+        <p>Notas: {{ r.notes }}</p>
+        <p>Observación: {{ r.observacion }}</p>
+
+        <hr>
+    {% endfor %}
+
+{% else %}
+
+    <p>No hay resultados</p>
+
+{% endif %}
+
+<h2>Asignar licencia</h2>
+
+<form method="POST" action="/asignar/">
+
+    {% csrf_token %}
+
+    Equipo:
+    <input type="text" name="nombre_equipo"><br>
+
+    Usuario:
+    <input type="text" name="usuario"><br>
+
+    Software:
+    <input type="text" name="software"><br>
+
+    Ticket asignación:
+    <input type="text" name="ticket_asignacion"><br>
+
+    Usuario_licenciamiento:
+    <input type="text" name="usuario_licenciamiento"><br>
+
+    <button type="submit">Asignar</button>
+
+</form>
+
+
+<h2>Recuperar licencia</h2>
+
+<form method="POST" action="/recuperar/">
+
+    {% csrf_token %}
+
+    Equipo:
+    <input type="text" name="nombre_equipo"><br>
+
+    Usuario:
+    <input type="text" name="usuario"><br>
+
+    <button type="submit">Recuperar</button>
+
+</form>
+
+{% if licencia %}
+<p>Licencia encontrada: {{ licencia }}</p>
+{% endif %}
+
+{% if mensaje %}
+<p>{{ mensaje }}</p>
+{% endif %}
+
+</body>
+</html>
